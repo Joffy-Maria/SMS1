@@ -70,27 +70,35 @@ public class LoginFrame extends JFrame {
         card.add(Box.createVerticalStrut(25));
 
         // Username
+        JPanel userPanel = new JPanel();
+        userPanel.setLayout(new BoxLayout(userPanel, BoxLayout.Y_AXIS));
+        userPanel.setBackground(Color.WHITE);
+        userPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 75));
         JLabel userLabel = new JLabel("Username:");
         userLabel.setFont(new Font("Segoe UI", Font.BOLD, 13));
         userLabel.setForeground(new Color(50, 50, 50));
         userLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        card.add(userLabel);
-        card.add(Box.createVerticalStrut(5));
-
         userField = createTextField();
-        card.add(userField);
+        userPanel.add(userLabel);
+        userPanel.add(Box.createVerticalStrut(5));
+        userPanel.add(userField);
+        card.add(userPanel);
         card.add(Box.createVerticalStrut(15));
 
         // Password
+        JPanel passPanel = new JPanel();
+        passPanel.setLayout(new BoxLayout(passPanel, BoxLayout.Y_AXIS));
+        passPanel.setBackground(Color.WHITE);
+        passPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 75));
         JLabel passLabel = new JLabel("Password:");
         passLabel.setFont(new Font("Segoe UI", Font.BOLD, 13));
         passLabel.setForeground(new Color(50, 50, 50));
         passLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        card.add(passLabel);
-        card.add(Box.createVerticalStrut(5));
-
         passField = createPasswordField();
-        card.add(passField);
+        passPanel.add(passLabel);
+        passPanel.add(Box.createVerticalStrut(5));
+        passPanel.add(passField);
+        card.add(passPanel);
         card.add(Box.createVerticalStrut(25));
 
         // Buttons row

@@ -3,8 +3,8 @@ package app.ui;
 import app.dao.ProductDAO;
 import app.models.Product;
 import app.util.BillPrinter;
-
 import javax.swing.*;
+import javax.swing.border.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -50,15 +50,15 @@ public class CustomerFrame extends JFrame {
         JPanel tablePanel = new JPanel(new BorderLayout());
         tablePanel.setBackground(new Color(240, 245, 250));
         tablePanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 15));
-
+        tablePanel.setBackground(Color.CYAN);
         String[] cols = {"ID", "Product Name", "Price", "Stock Available"};
         tableModel = new DefaultTableModel(cols, 0) {
             public boolean isCellEditable(int r, int c) { return false; }
         };
         table = new JTable(tableModel);
         table.setRowHeight(38);
-        table.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
+        table.setFont(new Font("Segoe UI", Font.ITALIC, 13));
+        table.getTableHeader().setFont(new Font("Sanserif", Font.BOLD, 14));
         table.getTableHeader().setBackground(new Color(3, 169, 244));
         table.getTableHeader().setForeground(Color.BLACK);
         table.getTableHeader().setPreferredSize(new Dimension(0, 45));
@@ -67,7 +67,7 @@ public class CustomerFrame extends JFrame {
         table.setGridColor(new Color(230, 230, 230));
         table.setShowGrid(true);
         table.setIntercellSpacing(new Dimension(0, 1));
-
+        table.setBackground(Color.pink);
         // Alternating row colors
         table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
