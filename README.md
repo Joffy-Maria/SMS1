@@ -136,10 +136,10 @@ CREATE TABLE products (
 ### Sample Data
 | ID | Product | Price | Stock | Description |
 |----|---------:|------:|------:|-------------|
-| 1 | Milk 1L | Rs 1.20 | 100 | Fresh milk 1 litre |
-| 2 | Bread | Rs 0.80 | 200 | Whole wheat bread |
-| 3 | Eggs (12) | Rs 2.50 | 150 | Free range eggs - dozen |
-| 4 | Apple (1 kg) | Rs 3.00 | 80 | Fresh red apples |
+| 1 | Milk 1L | Rs 60.20 | 100 | Fresh milk 1 litre |
+| 2 | Bread | Rs 50.80 | 200 | Whole wheat bread |
+| 3 | Eggs (12) | Rs 6.50 | 150 | Free range eggs - dozen |
+| 4 | Apple (1 kg) | Rs 100.00 | 80 | Fresh red apples |
 
 ---
 
