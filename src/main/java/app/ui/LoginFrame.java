@@ -1,8 +1,12 @@
 package app.ui;
 
 import javax.swing.*;
+import javax.swing.border.AbstractBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 
 public class LoginFrame extends JFrame {
     private JTextField userField;
@@ -14,27 +18,51 @@ public class LoginFrame extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setResizable(true);
 
-        // Background panel (center everything)
-        JPanel background = new JPanel(new GridBagLayout());
-        background.setBackground(new Color(230, 240, 250));
+        // Background panel with gradient
+        JPanel background = new JPanel(new GridBagLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g;
+                g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+                GradientPaint gp = new GradientPaint(0, 0, new Color(15, 76, 129),
+                        getWidth(), getHeight(), new Color(25, 118, 210));
+                g2.setPaint(gp);
+                g2.fillRect(0, 0, getWidth(), getHeight());
+                super.paintComponent(g);
+            }
+        };
+        background.setOpaque(false);
         add(background);
 
-        // Center card
-        JPanel card = new JPanel();
+        // Center card with shadow
+        JPanel card = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g;
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                // Shadow
+                g2.setColor(new Color(0, 0, 0, 30));
+                g2.fillRoundRect(3, 3, getWidth() - 6, getHeight() - 6, 15, 15);
+
+                // Card background
+                g2.setColor(Color.WHITE);
+                g2.fillRoundRect(0, 0, getWidth() - 3, getHeight() - 3, 15, 15);
+                super.paintComponent(g);
+            }
+        };
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setBackground(Color.WHITE);
-        card.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(200, 220, 240), 1),
-                BorderFactory.createEmptyBorder(30, 40, 30, 40)
-        ));
+        card.setOpaque(false);
         card.setPreferredSize(new Dimension(450, 380));
+        card.setBorder(BorderFactory.createEmptyBorder(30, 40, 30, 40));
 
-        // Header (gradient panel)
+        // Header with gradient
         JPanel header = new GradientPanel(new Color(3, 169, 244), new Color(2, 119, 189));
-        header.setMaximumSize(new Dimension(Integer.MAX_VALUE, 55));
+        header.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60));
         header.setLayout(new GridBagLayout());
         JLabel title = new JLabel("Welcome to Supermarket");
-        title.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        title.setFont(new Font("Segoe UI", Font.BOLD, 20));
         title.setForeground(Color.WHITE);
         header.add(title);
         card.add(header);
@@ -44,7 +72,8 @@ public class LoginFrame extends JFrame {
         // Username
         JLabel userLabel = new JLabel("Username:");
         userLabel.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        userLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        userLabel.setForeground(new Color(50, 50, 50));
+        userLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         card.add(userLabel);
         card.add(Box.createVerticalStrut(5));
 
@@ -55,7 +84,8 @@ public class LoginFrame extends JFrame {
         // Password
         JLabel passLabel = new JLabel("Password:");
         passLabel.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        passLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        passLabel.setForeground(new Color(50, 50, 50));
+        passLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         card.add(passLabel);
         card.add(Box.createVerticalStrut(5));
 
@@ -66,6 +96,8 @@ public class LoginFrame extends JFrame {
         // Buttons row
         JPanel buttonRow = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
         buttonRow.setBackground(Color.WHITE);
+        buttonRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
+
         JButton adminBtn = createButton("Admin", new Color(3, 169, 244));
         JButton customerBtn = createButton("Customer", new Color(76, 175, 80));
         buttonRow.add(adminBtn);
@@ -102,22 +134,20 @@ public class LoginFrame extends JFrame {
     private JTextField createTextField() {
         JTextField tf = new JTextField();
         tf.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        tf.setMaximumSize(new Dimension(Integer.MAX_VALUE, 36));
-        tf.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(180, 200, 220), 1, true),
-                BorderFactory.createEmptyBorder(6, 10, 6, 10)
-        ));
+        tf.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+        tf.setBackground(new Color(248, 248, 248));
+        tf.setCaretColor(new Color(3, 169, 244));
+        tf.setBorder(new RoundBorder(new Color(200, 200, 200), 6, 1));
         return tf;
     }
 
     private JPasswordField createPasswordField() {
         JPasswordField pf = new JPasswordField();
         pf.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        pf.setMaximumSize(new Dimension(Integer.MAX_VALUE, 36));
-        pf.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(180, 200, 220), 1, true),
-                BorderFactory.createEmptyBorder(6, 10, 6, 10)
-        ));
+        pf.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+        pf.setBackground(new Color(248, 248, 248));
+        pf.setCaretColor(new Color(3, 169, 244));
+        pf.setBorder(new RoundBorder(new Color(200, 200, 200), 6, 1));
         return pf;
     }
 
@@ -129,22 +159,49 @@ public class LoginFrame extends JFrame {
         b.setFocusPainted(false);
         b.setBorderPainted(false);
         b.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        b.setPreferredSize(new Dimension(110, 38));
+        b.setPreferredSize(new Dimension(130, 42));
 
         // Hover effect
-        b.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent e) {
+        b.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
                 b.setBackground(color.darker());
             }
 
-            public void mouseExited(java.awt.event.MouseEvent e) {
+            public void mouseExited(MouseEvent e) {
                 b.setBackground(color);
             }
         });
         return b;
     }
 
-    // Gradient header background
+    // Custom rounded border
+    static class RoundBorder extends AbstractBorder {
+        private Color color;
+        private int radius;
+        private int thickness;
+
+        RoundBorder(Color color, int radius, int thickness) {
+            this.color = color;
+            this.radius = radius;
+            this.thickness = thickness;
+        }
+
+        @Override
+        public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setColor(color);
+            g2.setStroke(new BasicStroke(thickness));
+            g2.drawRoundRect(x, y, w - 1, h - 1, radius, radius);
+        }
+
+        @Override
+        public Insets getBorderInsets(Component c) {
+            return new Insets(8, 12, 8, 12);
+        }
+    }
+
+    // Gradient Panel for header
     static class GradientPanel extends JPanel {
         private final Color c1, c2;
 
@@ -157,7 +214,10 @@ public class LoginFrame extends JFrame {
         @Override
         protected void paintComponent(Graphics g) {
             Graphics2D g2 = (Graphics2D) g;
-            g2.setPaint(new GradientPaint(0, 0, c1, getWidth(), 0, c2));
+            g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            GradientPaint gp = new GradientPaint(0, 0, c1, getWidth(), 0, c2);
+            g2.setPaint(gp);
             g2.fillRect(0, 0, getWidth(), getHeight());
             super.paintComponent(g);
         }

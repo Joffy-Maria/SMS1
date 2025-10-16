@@ -336,7 +336,7 @@ public class AdminFrame extends JFrame {
             List<Product> list = dao.getAllProducts();
             tableModel.setRowCount(0);
             for (Product p : list) {
-                tableModel.addRow(new Object[]{p.getId(), p.getName(), String.format("$%.2f", p.getPrice()), p.getQuantity(), p.getDescription()});
+                tableModel.addRow(new Object[]{p.getId(), p.getName(), String.format("Rs %.2f", p.getPrice()), p.getQuantity(), p.getDescription()});
             }
             totalProductsLabel.setText("Total Products: " + list.size());
         } catch (SQLException ex) {
