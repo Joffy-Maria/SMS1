@@ -25,10 +25,10 @@ public class CustomerFrame extends JFrame {
 
     public CustomerFrame() {
         setTitle("Customer - Supermarket");
-        setSize(1000, 600);
+        setSize(1100, 700);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         JPanel main = new JPanel(new BorderLayout());
         main.setBackground(new Color(250, 250, 250));
 
